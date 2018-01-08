@@ -16,9 +16,10 @@
 	
 	do {
 		(write-host "Testing connection to $ComputerName..")
-		#Start-Sleep -s 10  ## enable it if Ping needs to sleep for mins for longer downtime
+		#Start-Sleep -s 10     ## enable it if Ping needs to sleep for mins for longer downtime
+		# Test-Connection $ComputerName   ##enable it if you need kind of trace log whether we are able to reach the server or not. This redundant Test-connection statement will give you output as we cannot redirect output from until statement
 		}
-	until (Test-Connection $ComputerName)##here is where actual ping happens
+	until (Test-Connection $ComputerName)     ##here is where actual ping happens
 	$sound = new-Object System.Media.SoundPlayer;
 	$sound.SoundLocation="c:\WINDOWS\Media\chimes.wav";
 	$sound.PlayLooping(); #will loop the sound
