@@ -1,0 +1,30 @@
+<#
+.SYNOPSIS
+   Test a network connection to a computer, and notify with an alert sound and when the computer is contacted.
+.DESCRIPTION
+  will use Test-Connection command with popup options
+.PARAMETER ComputerName
+   The name of the server, or computer that is being pinged.
+   
+.EXAMPLE
+   Test-ConnectWithAlert -ComputerName ServerName   
+#>	
+  
+  
+  param([string]$ComputerName = "localhost") ##param passed through code
+	write-host "starting ping request"
+	
+	do {
+		(write-host "Testing connection to $ComputerName..")
+		#Start-Sleep -s 10  ## enable it if Ping needs to sleep for mins for longer downtime
+		}
+	until (Test-Connection $ComputerName)##here is where actual ping happens
+	$sound = new-Object System.Media.SoundPlayer;
+	$sound.SoundLocation="c:\WINDOWS\Media\chimes.wav";
+	$sound.PlayLooping(); #will loop the sound
+	$wshell = New-Object -ComObject Wscript.Shell
+	$wshell.Popup("$ComputerName is now online",0,"Online",0)
+	$sound.Stop() #will stop sound after responded to popup
+				
+	
+
